@@ -7,7 +7,7 @@ namespace MoodAnalyserProblem
 {
     public class MoodAnalyser
     {
-        string pattern = "^.*Sad.*$";
+        string pattern = "(^.*Sad.*$)|(^.*sad.*$)|(^.*SAD.*$)";
         public string analyseMood(string message)
         {
             bool match = Regex.IsMatch(message, pattern);
