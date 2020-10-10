@@ -7,7 +7,7 @@ namespace UnitTestMoodAnalyser
     public class UnitTest1
     {
         [TestMethod]
-        public void Test1Case1()
+        public void when_pass_I_am_Sad_should_return_Sad()
         {
             //Arrage
             MoodAnalyser analyser = new MoodAnalyser();
@@ -15,6 +15,16 @@ namespace UnitTestMoodAnalyser
             string result1 = analyser.analyseMood("I am in Sad Mood");
             //Assert
             Assert.AreEqual("SAD", result1);
+        }
+        [TestMethod]
+        public void when_pass_I_am_Happy_should_return_happy()
+        {
+            //Arrage
+            MoodAnalyser analyser = new MoodAnalyser();
+            //Act
+            string result2 = analyser.analyseMood("I am in Any Mood");
+            //Assert
+            Assert.AreEqual("HAPPY", result2);
         }
     }
 }
