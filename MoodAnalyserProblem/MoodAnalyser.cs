@@ -1,44 +1,41 @@
-﻿using System;
+﻿using MoodAnalyserProblem;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace MoodAnalyserProblem
 {
-    public class MoodAnalyser : Exception
+    public class MoodAnalyser
     {
-        string msg;
-        public string analyseMood()
+        private string message;
+        private string msg;
+
+        public MoodAnalyser(string message)
         {
-            if (msg == "I am in Sad Mood")
-            {
-                return "SAD";
-            }
-            else
-            {
-                return "HAPPY";
-            }
+            this.message = message;
         }
 
-        string pattern = "(^.*Sad.*$)|(^.*sad.*$)|(^.*SAD.*$)";
+        public MoodAnalyser()
+        { }
 
-        public string AnalyseMood(string message)
+        public string AnalyseMood()
         {
-            if (message != null)
+            try
             {
-                bool match = Regex.IsMatch(message, pattern);
-                if (match)
+                if (this.message.Equals(string.Empty))
                 {
+                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be empty");
+                }
+                if (this.message.Contains("sad")|| this.message.Contains("SAD")|| this.message.Contains("Sad"))
                     return "SAD";
-                }
                 else
-                {
                     return "HAPPY";
-                }
             }
-            else
+            catch (NullReferenceException)
             {
-                return "Value cannot be null";
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
             }
         }
     }
