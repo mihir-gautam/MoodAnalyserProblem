@@ -97,6 +97,34 @@ namespace UnitTestMoodAnalyser
             object obj = MoodAnalyseFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "I am in Happy Mood");
             expected.Equals(obj);
         }
+        [TestMethod]
+        public void Given_Proper_Message_But_Improper_MoodAnalyse_ClassName_Should_throw_MoodAnalysisException_Indicating_NoSuchClass()
+        {
+            try
+            {
+                object expected = new MoodAnalyser();
+                object obj = MoodAnalyseFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyyser", "MoodAnalyyser", "I am in Happy Mood");
+                expected.Equals(obj);
+            }
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("Class Not Found", e.Message);
+            }
+        }
+        [TestMethod]
+        public void Given_Proper_Message_But_Improper_MoodAnalyse_Constructor_Should_throw_MoodAnalysisException_Indicating_NoSuchMethod()
+        {
+            try
+            {
+                object expected = new MoodAnalyser();
+                object obj = MoodAnalyseFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyyser", "I am in Happy Mood");
+                expected.Equals(obj);
+            }
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("Constructor is Not Found", e.Message);
+            }
+        }
     }
 }
 
