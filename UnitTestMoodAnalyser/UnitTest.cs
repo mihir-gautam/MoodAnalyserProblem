@@ -59,7 +59,7 @@ namespace UnitTestMoodAnalyser
         public void Given_MoodAnalyse_ClassName_Should_Return_MoodAnalyse_Object()
         {
             object expected = new MoodAnalyser();
-            object obj = MoodAnalyseFactory.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser","MoodAnalyser");
+            object obj = MoodAnalyseReflector.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser");
             expected.Equals(obj);
         }
         [TestMethod]
@@ -68,7 +68,7 @@ namespace UnitTestMoodAnalyser
             try
             {
                 object expected = new MoodAnalyser();
-                object obj = MoodAnalyseFactory.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyyser", "MoodAnalyyser");
+                object obj = MoodAnalyseReflector.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyyser", "MoodAnalyyser");
                 expected.Equals(obj);
             }
             catch (MoodAnalyserCustomException e)
@@ -82,7 +82,7 @@ namespace UnitTestMoodAnalyser
             try
             {
                 object expected = new MoodAnalyser();
-                object obj = MoodAnalyseFactory.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyyserr");
+                object obj = MoodAnalyseReflector.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyyserr");
                 expected.Equals(obj);
             }
             catch (MoodAnalyserCustomException e)
@@ -94,7 +94,7 @@ namespace UnitTestMoodAnalyser
         public void Given_Proper_Message_To_MoodAnalyse_Should_Return_MoodAnalyse_Object()
         {
             object expected = new MoodAnalyser("HAPPY");
-            object obj = MoodAnalyseFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "I am in Happy Mood");
+            object obj = MoodAnalyseReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "I am in Happy Mood");
             expected.Equals(obj);
         }
         [TestMethod]
@@ -103,7 +103,7 @@ namespace UnitTestMoodAnalyser
             try
             {
                 object expected = new MoodAnalyser();
-                object obj = MoodAnalyseFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyyser", "MoodAnalyyser", "I am in Happy Mood");
+                object obj = MoodAnalyseReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyyser", "MoodAnalyyser", "I am in Happy Mood");
                 expected.Equals(obj);
             }
             catch (MoodAnalyserCustomException e)
@@ -117,8 +117,28 @@ namespace UnitTestMoodAnalyser
             try
             {
                 object expected = new MoodAnalyser();
-                object obj = MoodAnalyseFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyyser", "I am in Happy Mood");
+                object obj = MoodAnalyseReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyyser", "I am in Happy Mood");
                 expected.Equals(obj);
+            }
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("Constructor is Not Found", e.Message);
+            }
+        }
+        [TestMethod]
+        public void Given_Happy_Mood_Using_Reflection_When_Proper_Should_Return_Happy()
+        {
+            string expected = "HAPPY";
+            string mood = MoodAnalyseReflector.InvokeAnalyseMood("Happy","AnalyseMood");
+            Assert.AreEqual(expected, mood);
+        }
+        public void Given_Happy_Message_But_Improper_Method_Should_throw_MoodAnalysisException_Indicating_NoSuchMethod()
+        {
+            try
+            {
+                string expected = "HAPPY";
+                string mood = MoodAnalyseReflector.InvokeAnalyseMood("Happy", "AnalyyseMood");
+                expected.Equals(mood);
             }
             catch (MoodAnalyserCustomException e)
             {
