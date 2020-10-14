@@ -11,9 +11,6 @@ namespace MoodAnalyserProblem
 {
     public class MoodAnalyseFactory
     { 
-
-        public string Message { get; set; }
-
         public static object CreateMoodAnalyse(string className, string constructorName)
         {
             string message = null;
