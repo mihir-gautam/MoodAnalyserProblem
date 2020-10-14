@@ -90,6 +90,13 @@ namespace UnitTestMoodAnalyser
                 Assert.AreEqual("Constructor is Not Found", e.Message);
             }
         }
+        [TestMethod]
+        public void Given_Proper_Message_To_MoodAnalyse_Should_Return_MoodAnalyse_Object()
+        {
+            object expected = new MoodAnalyser("HAPPY");
+            object obj = MoodAnalyseFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "I am in Happy Mood");
+            expected.Equals(obj);
+        }
     }
 }
 
