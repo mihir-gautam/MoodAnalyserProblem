@@ -145,6 +145,38 @@ namespace UnitTestMoodAnalyser
                 Assert.AreEqual("Constructor is Not Found", e.Message);
             }
         }
+        [TestMethod]
+        public void Given_Happy_Message_With_Reflector_Should_Return_Happy()
+        {
+            string expected = "HAPPY";
+            string result = MoodAnalyseReflector.SetField("HAPPY", "message");
+            Assert.AreEqual(expected, result);
+        }
+        [TestMethod]
+        public void Given_Happy_Message_Improper_Field_Should_Throw_MoodAnalyserCustomException()
+        {
+            try
+            {
+                string result = MoodAnalyseReflector.SetField("HAPPY", "any");
+            }
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("Field not found", e.Message);
+            }
+        }
+        [TestMethod]
+        public void Given_Null_Message_With_Reflection_Should_Throw_MoodAnalyserCustomException()
+        {
+            try
+            {
+                string message = null;
+                string result = MoodAnalyseReflector.SetField(message, "message");
+            }
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("Message should not be null", e.Message);
+            }
+        }
     }
 }
 
